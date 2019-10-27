@@ -1,18 +1,23 @@
 CC = /usr/bin/gcc
-FILE_SUFFIXES = '.*\.\(c\|h\)' 
+CXX = /usr/bin/g++
+
+FILE_SUFFIXES = '.*\.\(c\|h\|cc\|cpp\|hpp\)' 
 FORMAT_TARGET = clang-format -i -style=Mozilla
 
 #PATHS
-SRC_PATH = c/src
-LIB_FILES = data_messages.c data.c ping_message.c checksum.c rmt_messages.c
-EXE_FILE = impl/cmd_vel.c
+SRC_PATH = src
+
+LIB_FILES = posthandler.c
+LIB_FILESCC = april.cc
+
+EXE_FILE = impl/main2.c
 BUILD_PATH = build
 BIN_PATH = $(BUILD_PATH)/bin
 LIB_PATH = $(BUILD_PATH)/lib
 
 # Target names
 EXETARGET = run
-LIBTARGET = libmessgage_pkg.so
+LIBTARGET = lib_posthandler.so
 
 # extensions
 SRC_EXT = c
@@ -24,9 +29,9 @@ EXESOURCE = $(SRC_PATH)/$(EXE_FILE)
 OBJECTS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(BUILD_PATH)/%.o)
 DEPS = $(OBJECTS:.o=.d)
 
-CFLAGS = -ansi -Wall -Wextra -std=c99 -Os -fpic -Werror -g -Wno-unused-parameter -O0
+CFLAGS = -ansi -Wall -Wextra -std=gnu99 -Os -fpic -Werror -g -Wno-unused-parameter -O0 -lpthread
 CLIBFLAGS = -shared
-INCLUDES = -I c/include -I /usr/local/include
+INCLUDES = -I include -I /usr/local/include
 LIBS = 
 
 release: dirs
@@ -58,12 +63,18 @@ all: $(BIN_PATH)/$(EXETARGET) $(LIB_PATH)/$(LIBTARGET)
 
 .PHONY: format
 format:
-	@find ./c -regex $(FILE_SUFFIXES) | xargs $(FORMAT_TARGET)
+	@find ./src -regex $(FILE_SUFFIXES) | xargs $(FORMAT_TARGET)
+	@find ./include -regex $(FILE_SUFFIXES) | xargs $(FORMAT_TARGET)
 
 
 $(LIB_PATH)/$(LIBTARGET): $(OBJECTS)
 	@echo "Creating libraries out of $@"
 	$(CC) $(OBJECTS) $(CLIBFLAGS) -o $@
+	# @mv $(LIBTARGET) $@
+	
+$(LIB_PATH)/$(LIBTARGETCC): $(OBJECTSXX)
+	@echo "Creating libraries out of $@"
+	$(CXX) $(OBJECTSXX) $(CLIBFLAGS) -o $@
 	# @mv $(LIBTARGET) $@
 
 $(BIN_PATH)/$(EXETARGET): $(OBJECTS) 

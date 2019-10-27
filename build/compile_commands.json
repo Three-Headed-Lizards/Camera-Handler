@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/theo/school/softdev/apriltags/CameraHandler/build",
+  "command": "/usr/bin/c++   -I/home/theo/school/softdev/apriltags/CameraHandler/include -isystem /usr/include/opencv4  -O3 -DNDEBUG   -std=gnu++11 -o CMakeFiles/opencv_demo.dir/src/impl/opencv_demo.cc.o -c /home/theo/school/softdev/apriltags/CameraHandler/src/impl/opencv_demo.cc",
+  "file": "/home/theo/school/softdev/apriltags/CameraHandler/src/impl/opencv_demo.cc"
+}
+]

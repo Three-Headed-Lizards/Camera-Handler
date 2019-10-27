@@ -1,0 +1,7 @@
+/home/theo/school/softdev/apriltags/CameraHandler/build/CMakeFiles/install/strip.dir
+/home/theo/school/softdev/apriltags/CameraHandler/build/CMakeFiles/install/local.dir
+/home/theo/school/softdev/apriltags/CameraHandler/build/CMakeFiles/edit_cache.dir
+/home/theo/school/softdev/apriltags/CameraHandler/build/CMakeFiles/opencv_demo.dir
+/home/theo/school/softdev/apriltags/CameraHandler/build/CMakeFiles/rebuild_cache.dir
+/home/theo/school/softdev/apriltags/CameraHandler/build/CMakeFiles/list_install_components.dir
+/home/theo/school/softdev/apriltags/CameraHandler/build/CMakeFiles/install.dir
