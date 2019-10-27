@@ -16,7 +16,7 @@ int main(void) {
   curl = curl_easy_init();
 
   if(curl) {
-    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/robotpos");
+    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/tagpoint");
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "name=theo&project=test");
 
     res = curl_easy_perform(curl);
