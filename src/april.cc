@@ -9,8 +9,8 @@
 
 // C++ Includes
 #include "opencv2/opencv.hpp"
-#include <iostream>
 #include <curl/curl.h>
+#include <iostream>
 
 // April tags includes
 extern "C"
@@ -54,7 +54,7 @@ main(int argc, char* argv[])
   curl_global_init(CURL_GLOBAL_ALL);
   curl = curl_easy_init();
 
-  if(curl)   
+  if (curl)
     curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/tagpoint");
   else
     exit(1);
@@ -150,18 +150,19 @@ main(int argc, char* argv[])
       char dest[90];
       tag_point_to_post_request(&tag, dest);
       update_tag_point_timer(&tag);
-      
-      if(curl) {
+
+      if (curl) {
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, dest);
         res = curl_easy_perform(curl);
-        if(res != CURLE_OK) {
-          fprintf(stderr, "curl easy perform failed : %s \n", curl_easy_strerror(res));
+        if (res != CURLE_OK) {
+          fprintf(stderr,
+                  "curl easy perform failed : %s \n",
+                  curl_easy_strerror(res));
           break;
-        } 
-      }else {
+        }
+      } else {
         break;
       }
-
 
       printf("%s\n", dest);
     }
@@ -214,7 +215,7 @@ main(int argc, char* argv[])
     if (cv::waitKey(30) >= 0)
       break;
   }
-  if(curl)
+  if (curl)
     curl_easy_cleanup(curl);
   curl_global_cleanup();
 
