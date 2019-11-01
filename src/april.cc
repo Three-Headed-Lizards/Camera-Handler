@@ -42,7 +42,7 @@ main(int argc, char* argv[])
   if (create_tagpoint(&tag, &username[0])) {
     return errno;
   }
-  tagpoint_setopt(&tag, MILLISECONDS, NULL);
+  tagpoint_setopt(&tag, SECONDS, NULL);
   update_tag_point_timer(&tag);
 
   /*
