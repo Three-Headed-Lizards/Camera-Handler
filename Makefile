@@ -1,23 +1,18 @@
-CC = /usr/bin/gcc
-CXX = /usr/bin/g++
-
-FILE_SUFFIXES = '.*\.\(c\|h\|cc\|cpp\|hpp\)' 
+CC = /usr/bin/g++
+FILE_SUFFIXES = '.*\.\(c\|h\)' 
 FORMAT_TARGET = clang-format -i -style=Mozilla
 
 #PATHS
 SRC_PATH = src
-
-LIB_FILES = posthandler.c
-LIB_FILESCC = april.cc
-
-EXE_FILE = impl/main2.c
+LIB_FILES = posthandler.c 
+EXE_FILE = april.cc
 BUILD_PATH = build
 BIN_PATH = $(BUILD_PATH)/bin
 LIB_PATH = $(BUILD_PATH)/lib
 
 # Target names
 EXETARGET = run
-LIBTARGET = lib_posthandler.so
+LIBTARGET = libposthandler.so
 
 # extensions
 SRC_EXT = c
@@ -29,10 +24,11 @@ EXESOURCE = $(SRC_PATH)/$(EXE_FILE)
 OBJECTS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(BUILD_PATH)/%.o)
 DEPS = $(OBJECTS:.o=.d)
 
-CFLAGS = -ansi -Wall -Wextra -std=gnu99 -Os -fpic -Werror -g -Wno-unused-parameter -O0 -lpthread
+CFLAGS = -ansi -Wall -Wextra -std=gnu++11 -O3 -fpic -Werror -g -Wno-unused-parameter 
 CLIBFLAGS = -shared
 INCLUDES = -I include -I /usr/local/include
-LIBS = 
+LIBS = -lcurl -lapriltag
+LIBS := $(LIBS) $(shell pkg-config --libs opencv4)
 
 release: dirs
 	@$(MAKE) all
@@ -63,26 +59,20 @@ all: $(BIN_PATH)/$(EXETARGET) $(LIB_PATH)/$(LIBTARGET)
 
 .PHONY: format
 format:
-	@find ./src -regex $(FILE_SUFFIXES) | xargs $(FORMAT_TARGET)
-	@find ./include -regex $(FILE_SUFFIXES) | xargs $(FORMAT_TARGET)
+	@find . -regex $(FILE_SUFFIXES) | xargs $(FORMAT_TARGET)
 
 
 $(LIB_PATH)/$(LIBTARGET): $(OBJECTS)
 	@echo "Creating libraries out of $@"
 	$(CC) $(OBJECTS) $(CLIBFLAGS) -o $@
 	# @mv $(LIBTARGET) $@
-	
-$(LIB_PATH)/$(LIBTARGETCC): $(OBJECTSXX)
-	@echo "Creating libraries out of $@"
-	$(CXX) $(OBJECTSXX) $(CLIBFLAGS) -o $@
-	# @mv $(LIBTARGET) $@
 
 $(BIN_PATH)/$(EXETARGET): $(OBJECTS) 
 	@echo "Linking: $@"
-	$(CC) $(OBJECTS) $(INCLUDES) $(EXESOURCE) -o $@
+	$(CC) $(OBJECTS) $(INCLUDES) $(EXESOURCE) $(LIBS) -o $@
 
 -include $(DEPS)
 
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
 	@echo "Compiling: $< -> $@"
-	$(CC) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) $(LIBS) -MP -MMD -c $< -o $@

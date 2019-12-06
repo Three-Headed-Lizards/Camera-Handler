@@ -215,11 +215,12 @@ tag_point_to_post_request(tagpoint* point, char* destination)
   }
 
   sprintf(destination,
-          "userid=%d&username=%s&timestamp=%s&tagtime=%ld",
+          "userid=%d&username=%s&timestamp=%s&tagtime=%d",
           point->userid,
           point->user_name,
           point->timestamp,
-          point->dur);
+          (int)(rand() % 10));
+          /** 100); */
 
   size_t l = strlen(destination);
   destination[l] = '\0';

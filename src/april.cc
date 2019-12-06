@@ -33,12 +33,16 @@ extern "C"
 int
 main(int argc, char* argv[])
 {
+  srand(time(NULL));
+  std::string username("Default");
+  if(argc > 1) {
+    username = argv[1]; 
+  }
 
   /*
    * Create a new tag point with username Theo
    */
   tagpoint tag;
-  std::string username("Theo");
   if (create_tagpoint(&tag, &username[0])) {
     return errno;
   }
@@ -55,7 +59,8 @@ main(int argc, char* argv[])
   curl = curl_easy_init();
 
   if (curl)
-    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/tagpoint");
+    // curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/tagpoint");
+    curl_easy_setopt(curl, CURLOPT_URL, "https://the-game-three.herokuapp.com/tagpoint");
   else
     exit(1);
 
