@@ -1,1 +1,5 @@
 apriltag
+build
+*.pnm
+*.ps
+*.log
