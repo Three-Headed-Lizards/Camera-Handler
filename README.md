@@ -13,7 +13,7 @@ Both of these require cmake, make and gnutils. - Refer to their respective insta
 Other Targets
 
 ```bash
-  $ make clean # removes symlinks
+  $ make clean # removes symlinks and log files
   $ make format # formats code according to Mozilla format style guides
 ```
 
