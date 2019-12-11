@@ -220,7 +220,7 @@ tag_point_to_post_request(tagpoint* point, char* destination)
           point->user_name,
           point->timestamp,
           (int)(rand() % 10));
-          /** 100); */
+  /** 100); */
 
   size_t l = strlen(destination);
   destination[l] = '\0';

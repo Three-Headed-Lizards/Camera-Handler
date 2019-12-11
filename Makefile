@@ -26,7 +26,7 @@ DEPS = $(OBJECTS:.o=.d)
 
 CFLAGS = -ansi -Wall -Wextra -std=gnu++11 -O3 -fpic -Werror -g -Wno-unused-parameter 
 CLIBFLAGS = -shared
-INCLUDES = -I include -I /usr/local/include
+INCLUDES = -I include -I /usr/local/include -I /usr/include/opencv4
 LIBS = -lcurl -lapriltag
 LIBS := $(LIBS) $(shell pkg-config --libs opencv4)
 
@@ -59,7 +59,8 @@ all: $(BIN_PATH)/$(EXETARGET) $(LIB_PATH)/$(LIBTARGET)
 
 .PHONY: format
 format:
-	@find . -regex $(FILE_SUFFIXES) | xargs $(FORMAT_TARGET)
+	@find ./src -regex $(FILE_SUFFIXES) | xargs $(FORMAT_TARGET)
+	@find ./include -regex $(FILE_SUFFIXES) | xargs $(FORMAT_TARGET)
 
 
 $(LIB_PATH)/$(LIBTARGET): $(OBJECTS)

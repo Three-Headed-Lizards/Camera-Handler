@@ -5,11 +5,19 @@ Refer to [Server-Handler](https://github.com/Three-Headed-Lizards/Server-Handler
 Please have opencv4 and libapriltags installed.
 Both of these require cmake, make and gnutils. - Refer to their respective installation instructions
 
-There is no make file, to compile, run 
 
 ```bash
-  $ ./pseudomakefile
+  $ make
 ```
+
+Other Targets
+
+```bash
+  $ make clean # removes symlinks
+  $ make format # formats code according to Mozilla format style guides
+```
+
+
 
 To run the script, run
 ``` bash
