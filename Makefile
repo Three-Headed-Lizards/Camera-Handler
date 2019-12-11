@@ -49,6 +49,12 @@ clean:
 	@$(RM) -r $(BUILD_PATH)
 	@$(RM) -r $(BIN_PATH)
 	@$(RM) -r $(LIB_PATH)
+	@$(RM) *.pnm
+	@$(RM) *.log
+	@$(RM) *.ps
+	@$(RM) ./src/*.pnm
+	@$(RM) ./src/*.ps
+
 
 .PHONY: all
 all: $(BIN_PATH)/$(EXETARGET) $(LIB_PATH)/$(LIBTARGET)
