@@ -3,4 +3,4 @@ build
 *.pnm
 *.ps
 *.log
-*.run
+*run
